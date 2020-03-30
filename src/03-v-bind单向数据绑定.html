@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			p{color: blue;}
+			.active{color: red;}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+		<script>
+			new Vue({
+				el:'#app',
+				template:`
+					<div>
+						<p v-bind:class="{active:isRed}">字段颜色:蓝色</p>
+						<button @click="changeColor">切换字体颜色</button>
+					</div>
+				`,
+				data:function(){
+					return {
+						msg:'active',
+						isRed:false
+					}
+				},
+				methods:{
+					changeColor(e){
+						console.log(e.target);
+//						console.log(this)
+						this.isRed = ! this.isRed;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

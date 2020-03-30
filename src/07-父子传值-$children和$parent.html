@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <parent1>
+  </div>
+  <script>
+    // 子组件
+    var child1={
+      template:`
+      <div>{{$parent.msg}}</div>
+      `,
+      data(){
+        return {
+          child_msg:'子组件数据'
+        }
+      },
+      mounted(){
+        // 子组件执行父组件方法
+        this.$parent.test();
+      }
+    }
+    // 父组件
+    var parent1={
+      template:`
+      <child1/>
+      `,
+      data(){
+        return {
+          msg:'父组件数据'
+        };
+      },
+      components:{ child1 },
+      methods:{
+        test(){
+          console.log('我是父组件的方法，被执行');
+          
+        }
+      },
+      mounted(){
+        console.log(this.$children[0].child_msg); // 执行子组件方法
+        
+      }
+    }
+
+    var app = new Vue({
+      el:"#app",
+      components:{
+        parent1
+      }
+    })
+  </script>
+</body>
+</html>

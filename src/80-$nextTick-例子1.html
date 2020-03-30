@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <span id='name' ref='name'>{{ name }}</span>
+    <button @click='change'>change name</button>
+    <div id='content'></div>
+  </div>
+  <script>
+    
+    new Vue({
+    el: '#app',
+    data() {
+      return {
+        name: 'xufang'
+      }
+    },
+    methods: {
+      change() {
+        const $name = this.$refs.name
+        this.$nextTick(() => console.log('setter前：' + $name.innerHTML))
+        this.name = ' name改喽 '
+        console.log('同步方式：' + this.$refs.name.innerHTML)
+        setTimeout(() => console.log("setTimeout方式：" + this.$refs.name.innerHTML))
+        this.$nextTick(() => console.log('setter后：' + $name.innerHTML))
+        this.$nextTick().then(() => console.log('Promise方式：' + $name.innerHTML))
+      }
+    }
+  })
+
+  /**
+   同步方式：xufang
+   setter前：xufang
+   setter后： name改喽 
+   Promise方式： name改喽 
+   setTimeout方式： name改喽 
+  */
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+  <style>
+    .test{
+      width: 200px;
+      height: 100px;
+      background: yellow;
+    }
+    .changed{
+      border: 2px solid red;
+    }
+    .font24{
+      padding: 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">{{msg}}</div>
+  <script>
+    
+    var vm = new Vue({
+      el:"#app",
+      data(){
+        return {
+          msg:"123"
+        }
+      },
+    })
+    vm.msg = "456"
+    console.log(vm.$el.textContent);
+    console.log(vm.$el.textContent === '456');
+    
+    vm.$nextTick(function(){
+      console.log(vm.$el.textContent === '456');
+    })
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 3. 使用子组件 -->
+    <child></child>
+    <AChild></AChild>
+    <Vbtn></Vbtn>
+  </div>
+  <script>
+    // 1. 声明子组件
+    var child={
+      template:'<div>33333</div>'
+    };
+    Vue.component('AChild',{
+      template:`<div>4444</div>`
+    });
+    Vue.component('Vbtn',{
+			    template:`
+			    	<button>按钮</button>
+			    `
+			});
+    var app = new Vue({
+      el:'#app',
+      components:{   // 2. 挂载子组件
+        child
+      }
+    })
+
+  </script>
+</body>
+</html>

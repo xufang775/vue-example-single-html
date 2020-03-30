@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+
+			.main{margin: 0;padding: 0;display: flex;flex-direction: column; height: 800px;}
+			.head{height: 80px;background: yellow;}
+			.main2{flex: 1; display: flex}
+			.aside{width: 250px;background: yellowgreen;}
+			.content{flex: 1;background: sandybrown;}
+
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+		<script>
+			// 全局组件
+			// 两个参数，参数一为组件名，参数二，option
+			Vue.component('Vbtn',{
+			    template:`
+			    	<button>按钮</button>
+			    `
+			})
+
+
+
+			// 局部组件：声子  挂子  用子
+			var Vheader = {
+			    template:`
+			    	<div class="head">
+			    	我是头部组件
+			    	<vbtn></vbtn>
+			    	</div>
+			    `
+			}
+            var Vaside = {
+                template:`
+			    	<div class="aside">我是侧边组件</div>
+			    `
+            }
+            var Vmain = {
+                template:`
+			    	<div class="content">我是内容
+			    	<Vbtn></Vbtn>
+			    	</div>
+			    `
+            }
+
+			// 声明局部组件----入可组件
+			var App = {
+				template:`
+					<div class="main">
+						<Vheader></Vheader>
+						<div class="main2">
+							<Vaside></Vaside>
+							<Vmain></Vmain>
+						</div>
+					</div>
+				`,
+                // 2. 挂载组件
+                components:{
+                    Vheader,
+                    Vaside,
+                    Vmain
+                }
+			};
+			
+			new Vue({
+				el:'#app',
+				template:`<App></App>`,
+				data(){
+					return {
+						
+					}
+				},
+				// 2. 挂载组件
+				components:{
+				    App
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+
+			.main{margin: 0;padding: 0;display: flex;flex-direction: column; height: 800px;}
+			.head{height: 80px;background: yellow;}
+			.main2{flex: 1; display: flex}
+			.aside{width: 250px;background: yellowgreen;}
+			.content{flex: 1;background: sandybrown;}
+			.btn{
+				display: inline-block;
+				line-height: 1;
+				white-space: nowrap;
+				cursor: pointer;
+				background: #fff;
+				border: 1px solid #dcdfe6;
+				color: #606266;
+				-webkit-appearance: none;
+				text-align: center;
+				box-sizing: border-box;
+				outline: none;
+				margin: 0;
+				transition: .1s;
+				font-weight: 500;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				padding: 12px 20px;
+				font-size: 14px;
+				border-radius: 4px;
+			}
+			.success{
+				color: #fff;
+				background-color: #67c23a;
+				border-color: #67c23a;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+		<script>
+
+			// 全局组件
+			// slot 元素 作为承载分发的出口
+			Vue.component('Vbtn',{
+			    template:`
+			    	<button class="btn default" :class="type">
+			    		<slot></slot>
+					</button>
+			    `,
+				props:['type'],
+			    data(){
+			        return {
+
+					}
+				}
+			})
+
+			var Vheader = {
+			    template:`
+			    	<div class="head">
+			    	我是头部组件
+			    	<button @click="changeFontSize">字体变大</button>
+			    	<Vbtn type="success">注销</Vbtn>
+			    	</div>
+			    `,
+				methods:{
+                    changeFontSize(){
+                       // 触发父组件中声明的自定义事件 vue $emit()
+						// 第一个参数：触发自定义事件的名字
+						// 第二个参数：参数对象
+						this.$emit('change',{});
+					}
+				}
+			}
+            var Vaside = {
+                template:`
+			    	<div class="aside">
+			    	我是侧边组件
+			    	<Vbtn >播放</Vbtn>
+			    	</div>
+			    `
+            }
+            var Vmain = {
+                template:`
+			    	<div class="content" >我是内容
+			    		<ul>
+							<li v-for="(item ,index) in posts">
+								<h3>{{item.title}}</h3>
+								<h4>{{item.content}}</h4>
+							</li>
+						</ul>
+			    	</div>
+			    `,
+				props:['posts']
+            }
+
+			// 声明局部组件----入可组件
+			var App = {
+				template:`
+					<div class="main" :style="{fontSize:postFontSize+'em'}">
+						<Vheader @change="changeHandler"></Vheader>
+						<div class="main2">
+							<Vaside></Vaside>
+							<Vmain :posts = 'posts'></Vmain>
+						</div>
+					</div>
+				`,
+				data(){
+				  return {
+				      posts:[
+                          {id:1,title:'我的第1篇博客',content:'111111111'},
+                          {id:2,title:'我的第2篇博客',content:'2222222222'},
+                          {id:3,title:'我的第3篇博客',content:'333333333'},
+                          {id:4,title:'我的第4篇博客',content:'444444444'},
+					  ],
+                      postFontSize:1
+				  }
+				},
+				methods:{
+				  changeHandler(){
+						this.postFontSize = this.postFontSize +0.3;
+				  }
+				},
+                // 2. 挂载组件
+                components:{
+                    Vheader,
+                    Vaside,
+                    Vmain
+                }
+			};
+			
+			new Vue({
+				el:'#app',
+				template:`<App></App>`,
+				components:{
+				    App
+				}
+			})
+		</script>
+	</body>
+</html>

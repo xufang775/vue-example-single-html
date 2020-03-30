@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <App/>
+  </div>
+  <script>
+    var vm = new Vue();
+    Vue.component('myBtn',{
+      template:`
+        <button @click="onClick">点击我</button>
+      `,
+      methods:{
+        onClick(){
+          vm.$emit('click',{name:'xiaoxiao',age:18})
+        }
+      }
+    });
+    var App = {
+      template:`
+        <div>
+          <myBtn></myBtn>
+        </div>
+      `
+    }
+
+    new Vue({
+        el:'#app',
+        components:{App},
+        created(){
+          vm.$on('click',function(data){
+            console.log(data);
+          })
+        }
+    })
+
+  </script>
+</body>
+</html>

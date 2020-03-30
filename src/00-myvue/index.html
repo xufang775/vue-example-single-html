@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./js/xvue.js"></script>
+  <script src="./js/compile.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{name}}
+    <p>{{name}}</p>
+    <p x-test="name"></p>
+    <p>年龄：{{age}}</p>
+    <p>
+      {{doubleAge}}
+    </p>
+    <input type="text" x-model="name">
+    <button @click="changeName">呵呵</button>
+    <div x-html="html"></div>
+  </div>
+  <div>
+<!-- <p>{{name}}</p>
+    <p x-test="name"></p>
+    <p>年龄：{{age}}</p> -->
+  </div>
+  <script>
+    var vm = new XVue({
+      el:'#app',
+      data:{
+        name:'许芳',
+        age:30,
+        doubleAge:60,
+      },
+      methods:{
+        changeName(){
+          this.name = '哈喽'
+          this.age = 1;
+          console.log('改变了');
+          
+        }
+      }
+    });
+    vm.name = "测试22"
+    vm.name;
+
+  </script>
+</body>
+</html>

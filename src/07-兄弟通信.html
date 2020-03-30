@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <parent1>
+  </div>
+  <script>
+    
+    var child1={
+      template:`
+      <div>子组件1</div>
+      `,
+      props:['value'],
+      data(){
+        return {
+          name:'子组件1'
+        }
+      },
+      
+      mounted(){
+        console.log(this.$parent.$children);
+        this.$parent.$children.forEach(i=>{
+          console.log(i.name)
+        })
+        
+      }
+    }
+    var child2={
+      template:`
+      <div>子组件2</div>
+      `,
+      data(){
+        return {
+          name:'子组件2'
+        }
+      },
+     
+    }
+    var parent1={
+      template:`
+      <div>
+        <child1></child1>
+        <child2></child2>
+      </div>
+      `,
+      data(){
+        return {
+          msg:'model'
+        };
+      },
+      components:{ child1,child2},
+      
+    }
+
+    var app = new Vue({
+      el:"#app",
+      components:{
+        parent1
+      }
+    })
+  </script>
+</body>
+</html>

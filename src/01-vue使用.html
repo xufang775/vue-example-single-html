@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">2222 {{msg}}</div>
+		<!--1. 引包-->
+		<script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+		<script type="text/javascript">
+			// 2. 创建实例化vue对象
+			// 插值模板语法 {{}}   react {}  angular {{}}
+			new Vue({
+				el:'#app',
+				template:'<div>{{msg}}</div>',
+				data:function(){
+					return {
+						msg:'大家学习vue'
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

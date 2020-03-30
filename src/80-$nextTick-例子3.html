@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="example" @click="handleClick">
+    <div ref="test">{{test}}</div>
+    <button @click="handleClick">click</button>
+  </div>
+
+  <script>
+    
+    var vm = new Vue({
+      el: '#example',
+      data:{
+        test: 'begin',
+      },
+      methods: {
+        handleClick() {
+          console.log("start");
+          setTimeout(() => { // macroTask
+              console.log('1')
+          }, 0);
+          this.$nextTick(function () {
+              console.log('2')
+              this.$nextTick(function(){
+                console.log('3')
+              })
+              setTimeout(function(){
+                console.log('4');
+              })
+          })
+          console.log("end");
+          
+        }
+      }
+    })
+
+
+  /**
+   start
+   2
+   3
+   end
+   start
+   2
+   3
+   end
+   1
+   4
+   1
+   4
+   end
+  */
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div>a:{{a}}</div>
+    <!-- <div>b:{{b}}</div> -->
+    <!-- <div>c:{{c}}</div> -->
+    <div>user-name：{{user.name}}</div>
+    <div>user-age：{{user.age}}</div>
+    <div>user-birth：{{user.birth}}</div>
+    <div>
+      <h4>深入响应式原理</h4>
+      <ol>
+        <li> Vue无法检测到对象属性的添加或删除</li>
+        <li> 对于已经创建的实例，Vue不允许动态添加根级别的响应式属性。
+          但是，可以使用Vue.set(object,propertyName,value)方法向嵌套对象添加响应式属性。</li>
+
+      </ol>
+    </div>
+  </div>
+  <script>
+    var aa="稀客"
+    var app = new Vue({
+      el:"#app",
+      data:{
+        a:'aaa',
+        msg:'消息',
+        user:{
+          name:'xufang'
+        }
+      },
+      created(){
+        Vue.set(this.user,'d','dddd')
+      }
+    })
+    app.a = "aaa2222"
+    
+    Vue.set(app.user,'age',20)
+    // Vue.set(app,'remark',"备注备注")
+    app.user.birth="2018-09-08"
+    console.log(app.user);
+
+    /**
+    1. vue中的data对象是响应式的
+    2. 手动为app.data对象添加或删除属性，是无法做到响应的。
+    3. 要创建响应式的属性，可以通过Vue.set()来操作。
+    */
+  </script>
+</body>
+</html>

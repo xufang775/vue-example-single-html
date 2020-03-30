@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <parent1>
+  </div>
+  <script>
+    // 孙组件
+    var child2 = {
+      template:`
+        <p>{{child2}}</p>
+        <p>{{$attrs}}</p>
+      `,
+      props:['child2'],
+      mounted(){
+        this.$emit('test2')
+      }
+    };
+
+    // 子组件
+    var child1={
+      template:`
+      <p>{{child1}}</p>
+      <child2 v-bind="$attrs" v-on="$listeners"></child2>
+      `,
+      components:{child2},
+      props:['child1'],
+      mounted(){
+        this.$emit('test1')
+      }
+    }
+    // 父组件
+    var parent1={
+      template:`
+      <child1 
+      :child1="child1" 
+      :child2="child2" 
+      @test1="onTest1" 
+      @test2="onTest2"/>
+      `,
+      data(){
+        return {
+          child1:'childOne',
+          child2:'childTwo'
+        };
+      },
+      components:{ child1 },
+      methods:{
+        onTest1(){
+          console.log('test1 running');
+        },
+        onTest2(){
+          console.log('test2 running');
+          
+        }
+      }
+    }
+
+    var app = new Vue({
+      el:"#app",
+      components:{
+        parent1
+      }
+    })
+  </script>
+</body>
+</html>

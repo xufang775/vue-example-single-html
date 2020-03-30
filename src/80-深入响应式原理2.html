@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+  <style>
+    .test{
+      width: 200px;
+      height: 100px;
+      background: yellow;
+    }
+    .changed{
+      border: 2px solid red;
+    }
+    .font24{
+      padding: 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="testDiv" class="test" :class="{'changed':state}">
+      <p>这是一个测试div</p>
+      <button @click="change">修改状态</button>
+    </div>
+  </div>
+  <script>
+    
+    var app = new Vue({
+      el:"#app",
+      data(){
+        return {
+          state:false
+        }
+      },
+      mounted(){
+        this.el = document.getElementById("testDiv")
+        this.el.className += ' font24'
+      },
+      methods:{
+        change(){
+          console.log(this.el.className);
+          this.state = true;
+          console.log(this.el.className);
+          setTimeout(()=>{
+            console.log(this.el.className);
+          },0)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

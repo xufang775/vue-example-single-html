@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <parent1>
+  </div>
+  <script>
+    /*
+    父子通信：1.props和emit
+    */
+    var child1={
+      template:`
+      <div @click="toParent">{{data}}</div>
+      `,
+      props:['data'],
+      methods:{
+        toParent(){
+          this.$emit('send','给父组件')
+        }
+      }
+    }
+    var parent1={
+      template:`
+      <div>
+        <child1 :data="toChild" @send="getFromChild"></child1>
+      </div>
+      `,
+      data(){
+        return {
+          toChild:'大儿子',
+          fromChild:''
+        };
+      },
+      components:{ child1 },
+      methods:{
+        getFromChild(val){
+          this.fromChild = val;
+          console.log(val)
+        }
+      }
+    }
+
+    var app = new Vue({
+      el:"#app",
+      components:{
+        parent1
+      }
+    })
+  </script>
+</body>
+</html>

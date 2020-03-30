@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件通信</title>
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <parent>
+  </div>
+  <script>
+    // 父组件A
+    var child={
+      template:`
+      <div>{{data}}</div>
+      `,
+      inject:['data'],
+      mounted(){
+        console.log(this.data)
+      }
+    }
+    
+    var parent={
+      inject:['name'],
+      template:`
+        <div>
+          <p>{{name}}</p>
+          <child></child>
+        </div>
+      `,
+      components:{child}
+    }
+
+    var app = new Vue({
+      el:"#app",
+      provide:{
+        data:1,
+        name:'xiaoxiao'
+      },
+      components:{
+        parent
+      }
+    })
+  </script>
+</body>
+</html>

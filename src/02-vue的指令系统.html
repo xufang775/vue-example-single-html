@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 一定要有一个根节点 -->
+		<div id="app">
+			<div v-html="msg2"></div>
+			<div v-if="isShow">我是一个面板，我现在显示了</div>
+			<div v-show="isShow">我是测试指令 v-show</div>
+			<ul>
+				<li v-for="item in list">{{item.id}}--{{item.name}}</li>
+			</ul>
+			<ul>
+				<li v-for="(value,key) in object1">
+					{{value}}--{{key}}
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+		<script type="text/javascript">
+
+			// v-text innerText
+			// v-html innerHtml
+			new Vue({
+				el:'#app',
+				template:``,
+				data:function(){
+					return {
+						msg:'指令系统',
+						msg2:`<h2>指令系统2</h2>`,
+						isShow:false,
+						list:[
+							{id:1,name:'3333'},
+							{id:1,name:'3333'},
+							{id:1,name:'3333'},
+						],
+						object1:{
+							name:'xufang',
+							sex:'女',
+							age:20
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
