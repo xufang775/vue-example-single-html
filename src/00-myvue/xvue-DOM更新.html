@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./js/xvue.js"></script>
+  <script src="./js/compile.js"></script>
+  <script src="../../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="xvue-app">
+    <p id="xvue-name">{{name}}</p>
+    <p>
+      <button @click="changeName">修改名称</button>
+    </p>
+  </div>
+  <script>
+    // 这个自己实现的XVue，其DOM更新是同步的。而Vue的DOM更新是同步的。
+    new XVue({
+      el:"#xvue-app",
+      data:{
+        name:'xufang'
+      },
+      methods:{
+        changeName(){
+          const obj = document.getElementById("xvue-name")
+          console.log(obj.innerHTML);
+          this.name = "xufang123"
+          console.log(obj.innerHTML);
+          Promise.resolve().then(()=>{
+            console.log("Promise:",obj.innerHTML);
+          })
+        }
+      }
+    })
+  </script>
+
+  <br/>
+  <div id="vue-app">
+    <p id="vue-name">{{name}}</p>
+    <p>
+      <button @click="changeName">修改名称</button>
+    </p>
+  </div>
+  <script>
+    new Vue({
+      el:"#vue-app",
+      data:{
+        name:'xufang'
+      },
+      methods:{
+        changeName(){
+          const obj = document.getElementById("vue-name")
+          console.log(obj.innerHTML);
+          this.name = "xufang123"
+          console.log(obj.innerHTML);
+          Promise.resolve().then(()=>{
+            console.log("Promise:",obj.innerHTML);
+          })
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>

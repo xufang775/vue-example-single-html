@@ -7,14 +7,22 @@ new XVue({
 class XVue{
   constructor(options){
     this.$options = options;
-
-    //处理data选项
+    // 生命周期-beforeCreate
+    this.$options.beforeCreate && this.$options.beforeCreate.call(this)
+    // 处理data选项
     this.$data = options.data;
     // 响应化
     this.observe(this.$data)
+    
+    // 生命周期-created
+    this.$options.created && this.$options.created.call(this)
 
+    this.$options.beforeMount && this.$options.beforeMount.call(this)
     // this --> vue实例
     new Compile(options.el,this);
+
+    // 生命周期-created
+    this.$options.mounted && this.$options.mounted.call(this)
 
     // new Watcher();
     // this.$data.test;
@@ -72,7 +80,7 @@ class Dep{
     this.deps.push(dep)
   }
   notify(){
-    console.log(this.deps);
+    // console.log(this.deps);
     this.deps.forEach(dep=>dep.update())
   }
 }
@@ -90,7 +98,7 @@ class Watcher{
     Dep.tagart = null;
   }
   update(){
-    console.log('属性更新了');
+    // console.log('属性更新了');
     
     this.cb.call(this.vm,this.vm[this.key]);
   }

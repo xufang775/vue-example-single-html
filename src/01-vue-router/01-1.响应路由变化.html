@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../node_modules/vue/dist/vue.min.js"></script>
+  <script src="../../node_modules/vue-router/dist/vue-router.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Hello App</h1>
+    <p>
+      <router-link to="/user/xufang">Go to User</router-link>
+    </p>
+    <router-view></router-view>
+  </div>
+  <script>
+    const User = { 
+      template:`<div>User {{$route.params.id}} </div>`,
+      watch:{
+        '$route'(to,from){
+          // 对路由变化作出响应
+          console.log(to);
+          console.log(from);
+          
+          
+        }
+      }
+    }
+
+    const routes = [
+      { path: '/user/:id', component: User, name:'xufang-user'}
+    ]
+
+    const router = new VueRouter({
+      routes // (缩写) 相当于 routes: routes
+    })
+  
+    const app = new Vue({
+      router
+    }).$mount('#app')
+
+  </script>
+</body>
+</html>

@@ -10,7 +10,7 @@
 <body>
   <div id="app">
     {{name}}
-    <p>{{name}}</p>
+    <p id="name">{{name}}</p>
     <p x-test="name"></p>
     <p>年龄：{{age}}</p>
     <p>
@@ -20,11 +20,6 @@
     <button @click="changeName">呵呵</button>
     <div x-html="html"></div>
   </div>
-  <div>
-<!-- <p>{{name}}</p>
-    <p x-test="name"></p>
-    <p>年龄：{{age}}</p> -->
-  </div>
   <script>
     var vm = new XVue({
       el:'#app',
@@ -33,18 +28,31 @@
         age:30,
         doubleAge:60,
       },
+      created(){
+        console.log(this.$el);
+        
+      },
+      mounted(){
+        console.log(this.$el);
+        
+        console.log(document.getElementById("vue-app"));
+        this.name="挂载后修改为：xufang----xufang"
+      },
       methods:{
         changeName(){
+          var node = document.getElementById("name");
+          console.log("name:"+node.innerHTML);
+          
           this.name = '哈喽'
+          console.log("name:"+node.innerHTML);
           this.age = 1;
           console.log('改变了');
           
         }
       }
     });
-    vm.name = "测试22"
-    vm.name;
 
   </script>
+  
 </body>
 </html>

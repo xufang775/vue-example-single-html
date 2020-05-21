@@ -7,7 +7,9 @@
   <script src="../node_modules/vue/dist/vue.min.js"></script>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <p>DOM更新：当有多个watcher连接触发时，只执行最后一次更新</p>
+  </div>
   <script>
     
     var app = new Vue({
@@ -28,7 +30,7 @@
         }
       }
     })
-    // 当有多个watcher连接触发时，只执行最近一次
+    // 当有多个watcher连接触发时，只执行最后一次
   </script>
 </body>
 </html>

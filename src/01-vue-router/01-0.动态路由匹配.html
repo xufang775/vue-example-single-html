@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../node_modules/vue/dist/vue.min.js"></script>
+  <script src="../../node_modules/vue-router/dist/vue-router.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Hello App</h1>
+    <p>
+      <router-link to="/foo">Go to Foo</router-link>
+      <router-link to="/bar">Go to Bar</router-link>
+      <router-link to="/user/xufang">Go to User</router-link>
+    </p>
+    <router-view></router-view>
+  </div>
+  <script>
+    const Foo = { template: '<div>foo</div>' }
+    const Bar = { template: '<div>bar</div>' }
+    const User = { template:`<div>User {{$route.params.id}} </div>`}
+
+    const routes = [
+      { path: '/foo', component: Foo },
+      { path: '/bar', component: Bar },
+      { path: '/user/:id', component: User, name:'xufang-user'}
+    ]
+
+    // 3. 创建 router 实例，然后传 `routes` 配置
+    // 你还可以传别的配置参数, 不过先这么简单着吧。
+    const router = new VueRouter({
+      routes // (缩写) 相当于 routes: routes
+    })
+
+    // 4. 创建和挂载根实例。
+    // 记得要通过 router 配置参数注入路由，
+    // 从而让整个应用都有路由功能
+    const app = new Vue({
+      router
+    }).$mount('#app')
+
+    // 现在，应用已经启动了！
+  </script>
+</body>
+</html>

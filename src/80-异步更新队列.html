@@ -32,13 +32,21 @@
         }
       },
     })
+    Promise.resolve().then(()=>{
+      console.log("1:"+vm.$el.textContent);
+    })
     vm.msg = "456"
-    console.log(vm.$el.textContent);
-    console.log(vm.$el.textContent === '456');
+    console.log("0:"+vm.$el.textContent);
     
     vm.$nextTick(function(){
-      console.log(vm.$el.textContent === '456');
+      vm.msg = "111"
+      console.log("2:"+vm.$el.textContent);
+      setTimeout(()=>{
+        console.log("3:"+vm.$el.textContent);
+      })
     })
+    vm.msg = "789"
+    vm.msg = "000"
 
   </script>
 </body>
